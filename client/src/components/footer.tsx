@@ -101,7 +101,8 @@ function Footer() {
             </Helmet>
             <div className="divider"></div>
             <div className="flex flex-col mb-8 space-y-2 justify-center items-center t-primary ani-show">
-                <p className='text-sm text-neutral-500 font-normal link-line' style={{ marginTop: '0.8rem' }}>
+                <div ref={footerHtmlRef} style={{ marginTop: '0.8rem' }}/>
+                <p className='text-sm text-neutral-500 font-normal link-line' style={{ marginTop: 0 }} >
                     <span onDoubleClick={() => {
                         if(doubleClickTimes >= 2){
                             setDoubleClickTimes(0)
@@ -112,7 +113,7 @@ function Footer() {
                             setDoubleClickTimes(doubleClickTimes + 1)
                         }
                     }}>
-                        © 2024 - {new Date().getFullYear()} Powered by <a className='hover:underline' href="https://github.com/openRin/Rin" target="_blank">Rin</a>
+                        © {new Date().getFullYear()} Powered by <a className='hover:underline' href="https://github.com/openRin/Rin" target="_blank">Rin</a>
                     </span>
                     {config.getBoolean('rss') && <>
                         <Spliter />
@@ -143,7 +144,6 @@ function Footer() {
                         </Popup>
                     </>}
                 </p>
-                <div ref={footerHtmlRef} style={{ marginTop: 0 }} />
             </div>
         </footer>
     );
