@@ -21,7 +21,12 @@ export function bootstrapApp() {
       backend: {
         loadPath: "/locales/{{lng}}/{{ns}}.json",
       },
+      lng: "en",
       fallbackLng: "en",
+      detection: {
+        order: ["localStorage", "cookie"], // 只从存储中读取，不检测浏览器
+        caches: ["localStorage"], // 用户切换后保存到 localStorage
+      },
       interpolation: {
         escapeValue: false,
       },
