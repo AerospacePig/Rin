@@ -112,29 +112,35 @@ export function FeedCard({ id, title, avatar, draft, listed, top, summary, hasht
             ) : null}
             <div className={activeVariant === "editorial" ? "px-2 pb-2" : ""}>
                 <h1 className={styles.title}>{title}</h1>
-                <p className={`space-x-2 ${styles.meta}`}>
+
+                <p className={`flex flex-row flex-wrap items-center gap-2 ${styles.meta}`}>
                     <span title={new Date(createdAt).toLocaleString()}>
                         {createdAt === updatedAt ? timeago(createdAt) : t('feed_card.published$time', { time: timeago(createdAt) })}
                     </span>
-                    {createdAt !== updatedAt &&
+
+                    {createdAt !== updatedAt && (<>
+                        <span>|</span>
                         <span title={new Date(updatedAt).toLocaleString()}>
                             {t('feed_card.updated$time', { time: timeago(updatedAt) })}
-                        </span>
-                    }
+                        </span></>
+                    )}
+                    {hashtags.length > 0 && (<>
+                        <span>|</span>
+                        <span className="flex flex-row gap-2">
+                            {hashtags.map(({ name }, index) => (
+                                <HashTag key={index} name={name} />
+                            ))}
+                        </span></>
+                    )}
                 </p>
+
                 <p className={`space-x-2 ${styles.meta} ${activeVariant === "editorial" ? "mt-2" : ""}`}>
                     {draft === 1 && <span>{t("draft")}</span>}
                     {listed === 0 && <span>{t("unlisted")}</span>}
                     {top === 1 && <span className="text-theme">{t('article.top.title')}</span>}
                 </p>
+
                 <p className={`${styles.summary} ${activeVariant === "editorial" ? "mt-4 max-w-3xl" : ""}`}>{summary}</p>
-                {hashtags.length > 0 &&
-                    <div className={`flex flex-row flex-wrap justify-start gap-2 ${activeVariant === "editorial" ? "mt-4" : "mt-2 gap-x-2"}`}>
-                        {hashtags.map(({ name }, index) => (
-                            <HashTag key={index} name={name} />
-                        ))}
-                    </div>
-                }
             </div>
         </div>
     );

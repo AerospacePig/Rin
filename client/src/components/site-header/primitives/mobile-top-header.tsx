@@ -23,7 +23,7 @@ export function MobileTopHeader({
   avatarClassName?: string;
 }) {
   return (
-    <div className={`flex w-full items-center justify-between gap-3 px-4 py-2 lg:hidden ${isAtTop ? "bg-transparent backdrop-blur-none" : "bg-white/20 backdrop-blur-xl dark:bg-white/[0.03]"}`}>
+    <div className={`flex w-full items-center justify-between gap-3 px-4 py-2 lg:hidden ${isAtTop ? "" : "bg-white/20 backdrop-blur-xl dark:bg-white/[0.03]"}`}>
       <div className="flex min-w-0 flex-1 items-center gap-3">
         <BrandLink
           siteConfig={siteConfig}

@@ -3,15 +3,45 @@
 @tailwind utilities;
 @layer base {
     .bg-w {
-      @apply bg-white dark:bg-dark;
+      @apply bg-transparent;
+    }
+
+    .divider {
+      @apply relative border-0;
+      height: 1px;
+      background: linear-gradient(
+        90deg,
+        transparent 0%, 
+        /* 无色段 */
+        transparent 20%,
+        /* 渐变段 */
+        rgba(229, 231, 235, 0.1) 45%, /* 实色段 */
+        rgba(229, 231, 235, 0.1) 55%, /* 实色段 */
+        /* 渐变段 */
+        transparent 80%,
+        /* 无色段 */
+        transparent 100%
+      );
+    }
+
+    .divider-short {
+      @apply relative border-0;
+      height: 1px;
+      background: linear-gradient(
+        90deg,
+        transparent 0%,
+        rgba(229, 231, 235, 0.1) 10%,
+        rgba(229, 231, 235, 0.1) 90%,
+        transparent 100%
+      );
     }
   
     .bg-secondary {
-      @apply bg-neutral-100 dark:bg-neutral-700;
+      background-color: transparent;
     }
   
     .bg-button {
-      @apply hover:bg-neutral-200 dark:hover:bg-neutral-600 active:bg-neutral-300 dark:active:bg-neutral-500;
+      /* @apply hover:bg-neutral-200 dark:hover:bg-neutral-600 active:bg-neutral-300 dark:active:bg-neutral-500; */
     }
 
     .bg-hover {

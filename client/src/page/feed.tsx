@@ -184,37 +184,44 @@ export function FeedPage({ id, TOC, clean }: { id: string, TOC: () => JSX.Elemen
             <main className="wauto">
               <article
                 className="rounded-2xl bg-w m-2 px-6 py-4"
-                aria-label={feed.title ?? "Unnamed"}
-              >
+                aria-label={feed.title ?? "Unnamed"}>
                 <div className="flex justify-between">
                   <div>
-                    <div className="mt-1 mb-1 flex gap-1">
-                      <p
-                        className="text-gray-400 text-[12px]"
-                        title={new Date(feed.createdAt).toLocaleString()}
-                      >
-                        {t("feed_card.published$time", {
-                          time: timeago(feed.createdAt),
-                        })}
-                      </p>
-
-                      {feed.createdAt !== feed.updatedAt && (
+                    <div className="mt-1 mb-1 flex flex-row flex-wrap items-center gap-1">
                         <p
-                          className="text-gray-400 text-[12px]"
-                          title={new Date(feed.updatedAt).toLocaleString()}
-                        >
-                          {t("feed_card.updated$time", {
-                            time: timeago(feed.updatedAt),
-                          })}
+                            className="text-gray-400 text-[12px]"
+                            title={new Date(feed.createdAt).toLocaleString()}>
+                            {t("feed_card.published$time", {
+                                time: timeago(feed.createdAt),
+                            })}
                         </p>
-                      )}
+                          
+                        {feed.createdAt !== feed.updatedAt && (<>
+                          <span className="text-gray-400 text-[12px]">|</span>
+                          <p
+                              className="text-gray-400 text-[12px]"
+                              title={new Date(feed.updatedAt).toLocaleString()}>
+                              {t("feed_card.updated$time", {
+                                  time: timeago(feed.updatedAt),
+                              })}
+                          </p></>
+                        )}
+
+                        {feed.hashtags.length > 0 && (<>
+                          <span className="text-gray-400 text-[12px]">|</span>
+                          <div className="flex flex-row flex-wrap gap-x-2 items-center align-middle">
+                              {feed.hashtags.map(({ name }, index) => (
+                                  <HashTag key={index} name={name} />
+                              ))}
+                          </div></>
+                        )}
                     </div>
                     {counterEnabled && <p className='text-[12px] text-gray-400 font-normal link-line'>
                       <span> {t("count.pv")} </span>
                       <span>
                         {feed.pv}
                       </span>
-                      <span> |</span>
+                      <span> | </span>
                       <span> {t("count.uv")} </span>
                       <span>
                         {feed.uv}
@@ -281,7 +288,7 @@ export function FeedPage({ id, TOC, clean }: { id: string, TOC: () => JSX.Elemen
                   </div>
                 )}
                 <Markdown content={feed.content} />
-                <div className="mt-6 flex flex-col gap-2">
+                {/* <div className="mt-6 flex flex-col gap-2">
                   {feed.hashtags.length > 0 && (
                     <div className="flex flex-row flex-wrap gap-x-2">
                       {feed.hashtags.map(({ name }, index) => (
@@ -300,8 +307,9 @@ export function FeedPage({ id, TOC, clean }: { id: string, TOC: () => JSX.Elemen
                       </span>
                     </div>
                   </div>
-                </div>
+                </div> */}
               </article>
+              <div className="divider-short"></div>
               <AdjacentSection id={id} setError={setError} />
               {feed && <Comments id={`${feed.id}`} />}
               <div className="h-16" />

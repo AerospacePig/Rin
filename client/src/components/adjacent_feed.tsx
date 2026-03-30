@@ -1,9 +1,7 @@
 import type { AdjacentFeed, AdjacentFeedResponse } from "@rin/api";
 import {useEffect, useState} from "react";
 import { client } from "../app/runtime";
-import {timeago} from "../utils/timeago.ts";
 import {Link} from "wouter";
-import {useTranslation} from "react-i18next";
 
 export function AdjacentSection({id, setError}: { id: string, setError: (error: string) => void }) {
     const [adjacentFeeds, setAdjacentFeeds] = useState<AdjacentFeedResponse>();
@@ -30,24 +28,23 @@ export function AdjacentSection({id, setError}: { id: string, setError: (error: 
 export function AdjacentCard({data, type}: { data: AdjacentFeed | null | undefined, type: "previous" | "next" }) {
     const direction = type === "previous" ? "text-start" : "text-end"
     const radius = type === "previous" ? "rounded-t-2xl sm:rounded-none sm:rounded-l-2xl" : "rounded-b-2xl sm:rounded-none sm:rounded-r-2xl"
-    const {t} = useTranslation()
     if (!data) {
         return (<div className="w-full p-6 duration-300">
             <p className={`t-secondary w-full ${direction}`}>
                 {type === "previous" ? "Previous" : "Next"}
             </p>
-            <h1 className={`text-xl text-gray-700 dark:text-white text-pretty truncate ${direction}`}>
+            {/* <h1 className={`text-xl text-gray-700 dark:text-white text-pretty truncate ${direction}`}>
                 {t('no_more')}
-            </h1>
+            </h1> */}
         </div>);
     }
     return (
         <Link href={`/feed/${data.id}`} target="_blank"
               className={`w-full p-6 duration-300 bg-button ${radius}`}>
             <p className={`t-secondary w-full ${direction}`}>
-                {type === "previous" ? "Previous" : "Next"}
+                {type === "previous" ? "Previous" : "Next"} | {data.title}
             </p>
-            <h1 className={`text-xl font-bold text-gray-700 dark:text-white text-pretty truncate ${direction}`}>
+            {/* <h1 className={`text-xl font-bold text-gray-700 dark:text-white text-pretty truncate ${direction}`}>
                 {data.title}
             </h1>
             <p className={`space-x-2 ${direction}`}>
@@ -59,7 +56,7 @@ export function AdjacentCard({data, type}: { data: AdjacentFeed | null | undefin
                         {t('feed_card.updated$time', {time: timeago(data.updatedAt)})}
                     </span>
                 }
-            </p>
+            </p> */}
         </Link>
     )
 }

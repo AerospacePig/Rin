@@ -78,9 +78,9 @@ export function FeedsPage() {
             <Waiting for={feeds.draft.size + feeds.normal.size + feeds.unlisted.size > 0 || status === 'idle'}>
                 <main className="w-full flex flex-col justify-center items-center mb-8">
                     <div className="wauto text-start text-black dark:text-white py-4 text-4xl font-bold">
-                        <p>
+                        <h2>
                             {listState === 'draft' ? t('draft_bin') : listState === 'normal' ? t('article.title') : t('unlisted')}
-                        </p>
+                        </h2>
                         <div className="flex flex-row justify-between">
                             <p className="text-sm mt-4 text-neutral-500 font-normal">
                                 {t('article.total$count', { count: feeds[listState]?.size })}
@@ -98,9 +98,12 @@ export function FeedsPage() {
                         </div>
                     </div>
                     <Waiting for={status === 'idle'}>
-                        <div className={feedListClass}>
+                        <div className={feedListClass}> 
                             {feeds[listState].data.map(({ id, ...feed }: any) => (
-                                <FeedCard key={id} id={id} {...feed} />
+                                <div>
+                                    <div className="divider-short"></div>
+                                    <FeedCard key={id} id={id} {...feed} />
+                                </div>
                             ))}
                         </div>
                         <div className="wauto flex flex-row items-center mt-4 ani-show">

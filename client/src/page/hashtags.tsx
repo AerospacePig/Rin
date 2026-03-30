@@ -20,7 +20,7 @@ export function HashtagsPage() {
     const { t } = useTranslation();
     const siteConfig = useSiteConfig();
     const [hashtags, setHashtags] = useState<Hashtag[]>();
-    const [sortBy, setSortBy] = useState<'latest' | 'popular'>('latest');
+    const [sortBy] = useState<'latest' | 'popular'>('latest');
     const ref = useRef(false);
 
     useEffect(() => {
@@ -66,7 +66,7 @@ export function HashtagsPage() {
                             <p className="text-sm mt-4 text-neutral-500 font-normal">
                                 {t('total_tags', { count: sortedHashtags?.length || 0 })}
                             </p>
-                            <div className="flex flex-row items-center space-x-3">
+                            {/* <div className="flex flex-row items-center space-x-3">
                                 <button
                                     onClick={() => setSortBy('latest')}
                                     className={`text-sm mt-4 text-neutral-500 font-normal transition-colors hover:text-theme ${sortBy === 'latest' ? "text-theme" : ""}`}
@@ -80,7 +80,7 @@ export function HashtagsPage() {
                                 >
                                     {t('sort_popular')}
                                 </button>
-                            </div>
+                            </div> */}
                         </div>
                     </div>
 

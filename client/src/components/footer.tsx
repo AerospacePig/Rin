@@ -11,15 +11,26 @@ type ThemeMode = 'light' | 'dark' | 'system';
 function Footer() {
     const { t } = useTranslation()
     const [, setLocation] = useLocation()
-    const [modeState, setModeState] = useState<ThemeMode>('system');
+    // 忽略 modeState 的值，只使用 setModeState
+    const [, setModeState] = useState<ThemeMode>('dark');
     const config = useContext(ClientConfigContext);
     const footerHtml = config.get<string>('footer');
     const footerHtmlRef = useRef<HTMLDivElement | null>(null);
     const mountedScriptNodesRef = useRef<HTMLScriptElement[]>([]);
     const loginEnabled = config.getBoolean('login.enabled');
     const [doubleClickTimes, setDoubleClickTimes] = useState(0);
+
+    // SpacePig自增代码段，用于默认dark主题
+    // ======================================
     useEffect(() => {
-        const mode = localStorage.getItem('theme') as ThemeMode || 'system';
+        localStorage.setItem('theme', 'dark');
+        document.documentElement.setAttribute('data-color-mode', 'dark');
+        window.dispatchEvent(new Event("colorSchemeChange"));
+    }, []);
+    // =======================================
+
+    useEffect(() => {
+        const mode = localStorage.getItem('theme') as ThemeMode || 'dark';
         setModeState(mode);
         setMode(mode);
     }, [])
@@ -68,7 +79,6 @@ function Footer() {
         setModeState(mode);
         localStorage.setItem('theme', mode);
 
-
         if (mode !== 'system' || (!('theme' in localStorage) && window.matchMedia(`(prefers-color-scheme: ${mode})`).matches)) {
             document.documentElement.setAttribute('data-color-mode', mode);
         } else {
@@ -89,11 +99,11 @@ function Footer() {
                 <link rel="alternate" type="application/atom+xml" title={siteName} href="/atom.xml" />
                 <link rel="alternate" type="application/json" title={siteName} href="/rss.json" />
             </Helmet>
+            <div className="divider"></div>
             <div className="flex flex-col mb-8 space-y-2 justify-center items-center t-primary ani-show">
-                <div ref={footerHtmlRef} />
-                <p className='text-sm text-neutral-500 font-normal link-line'>
+                <p className='text-sm text-neutral-500 font-normal link-line' style={{ marginTop: '0.8rem' }}>
                     <span onDoubleClick={() => {
-                        if(doubleClickTimes >= 2){ // actually need 3 times doubleClick
+                        if(doubleClickTimes >= 2){
                             setDoubleClickTimes(0)
                             if(!loginEnabled) {
                                 setLocation(buildLoginPath(HIDDEN_LOGIN_REDIRECT))
@@ -129,16 +139,11 @@ function Footer() {
                                         JSON
                                     </a>
                                 </p>
-
                             </div>
                         </Popup>
                     </>}
                 </p>
-                <div className="w-fit-content inline-flex rounded-full border border-zinc-200 p-[3px] dark:border-zinc-700">
-                    <ThemeButton mode='light' current={modeState} label="Toggle light mode" icon="ri-sun-line" onClick={setMode} />
-                    <ThemeButton mode='system' current={modeState} label="Toggle system mode" icon="ri-computer-line" onClick={setMode} />
-                    <ThemeButton mode='dark' current={modeState} label="Toggle dark mode" icon="ri-moon-line" onClick={setMode} />
-                </div>
+                <div ref={footerHtmlRef} style={{ marginTop: 0 }} />
             </div>
         </footer>
     );
@@ -151,11 +156,12 @@ function Spliter() {
     )
 }
 
-function ThemeButton({ current, mode, label, icon, onClick }: { current: ThemeMode, label: string, mode: ThemeMode, icon: string, onClick: (mode: ThemeMode) => void }) {
-    return (<button aria-label={label} type="button" onClick={() => onClick(mode)}
-        className={`rounded-inherit inline-flex h-[32px] w-[32px] items-center justify-center border-0 t-primary ${current === mode ? "bg-w rounded-full shadow-xl shadow-light" : ""}`}>
-        <i className={`${icon}`} />
-    </button>)
-}
+// 注释掉未使用的 ThemeButton 组件
+// function ThemeButton({ current, mode, label, icon, onClick }: { current: ThemeMode, label: string, mode: ThemeMode, icon: string, onClick: (mode: ThemeMode) => void }) {
+//     return (<button aria-label={label} type="button" onClick={() => onClick(mode)}
+//         className={`rounded-inherit inline-flex h-[32px] w-[32px] items-center justify-center border-0 t-primary ${current === mode ? "bg-w rounded-full shadow-xl shadow-light" : ""}`}>
+//         <i className={`${icon}`} />
+//     </button>)
+// }
 
 export default Footer;

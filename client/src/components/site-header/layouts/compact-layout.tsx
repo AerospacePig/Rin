@@ -6,7 +6,7 @@ const PREVIEW_ITEMS = ["Home", "Timeline", "Moments"];
 
 export const compactLayoutDefinition: HeaderLayoutDefinition = {
   kind: "top",
-  renderDesktop({ children, profile, siteConfig, isAtTop }) {
+  renderDesktop({ profile, siteConfig, isAtTop }) {
     return (
       <div className="hidden w-full lg:block">
         <div className={`flex items-center justify-between gap-8 px-4 py-3 ${isAtTop ? "bg-transparent backdrop-blur-none" : "bg-white/20 backdrop-blur-xl dark:bg-white/[0.03]"}`}>
@@ -23,7 +23,7 @@ export const compactLayoutDefinition: HeaderLayoutDefinition = {
               <NavBar menu={false} itemClassName="px-0 py-1 pr-3 md:p-0 md:pr-3 text-sm font-medium text-neutral-700 dark:text-neutral-200" />
             </div>
             <div className="flex shrink-0 flex-row items-center gap-3">
-              {children ? <div className="flex items-center text-sm t-primary">{children}</div> : null}
+              {/* {children ? <div className="flex items-center text-sm t-primary">{children}</div> : null} */}
               <HeaderActions profile={profile} plain className="flex flex-row items-center gap-3" />
             </div>
           </div>

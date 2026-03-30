@@ -50,7 +50,7 @@ export function FriendsPage() {
     const { t } = useTranslation()
     const siteConfig = useSiteConfig();
     const config = useContext(ClientConfigContext)
-    let [apply] = useState<FriendItem>()
+    const [apply] = useState<FriendItem>()
     const [name, setName] = useState("")
     const [desc, setDesc] = useState("")
     const [avatar, setAvatar] = useState("")

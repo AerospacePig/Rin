@@ -22,6 +22,14 @@
 body {
   @apply bg-background-light dark:bg-background-dark text-gray-800;
   font-family: Cantarell, "Source Han Serif CN VF" !important;
+
+  background-image: url('https://pub-2f9709610c494c55ac821630d6650e33.r2.dev/costom/image/%E9%9C%B2%E5%A8%9Csama.png');
+  background-repeat: no-repeat;
+  background-position: center;
+  background-attachment: fixed;
+  background-size: cover;
+  /* 背景图片叠加在背景色之上 */
+  background-blend-mode: overlay;
 }
 
 textarea:focus {
